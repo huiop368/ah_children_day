@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Aerohive Children Day</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		(function(){
+			var n = 170, m = 40,
+				topics = 16, checks = 4, per = topics/checks;
+
+			return {
+
+				step : 0,
+
+				_ret : [],
+
+				init : function(){
+					this._prepare();		
+
+					//this.setStep(this.step);
+				},
+
+				_prepare : function(){
+					var dd, dt, arr;
+
+					this.employee = this._makeArr(n);
+					this.children = this._makeArr(m);
+
+					arr = this.usedChildren = this._makeRandomArr(this.children, topics);
+
+					console.log(this.usedChildren);
+
+					for(var i = 0; i < checks; i++){
+						dd = this._ret[i] = [];
+						for(var j = 0; j < per; j++){
+							dt = dd[j] = [];
+							dt.push(arr[0]);
+							dd[j] = dt.concat(this._makeMatchEmployee(arr[0],i));
+							arr.splice(0,1);
+						}
+					}
+
+					console.log(this._ret, this.employee);
+
+				},
+
+				goNext : function(){
+					this.step++;		 
+
+					this.setStep(this.step);
+				},
+
+				setStep : function(num){
+					var arr = [];		  
+
+					
+				},
+
+				_makeArr : function(n){
+					var arr = [];
+
+					for(var i = 0; i < n; i++){
+						arr.push(i);
+					}
+
+					return arr;
+				},
+
+				_makeRandomArr : function(arr, k){
+					var i = 0, ret = [], j;
+				 	for(; i < k; i++){
+						j = Math.floor(Math.random()*arr.length);				 
+						ret.push(j);
+						arr.splice(j, 1);
+					}				 
+
+					return ret;
+				},
+
+				_makeMatchEmployee : function(child, j){
+					var i = 4,
+						num = i + j * 2,
+						arr;
+
+					this.employee.splice(child, 1);
+
+					arr = this._makeRandomArr(this.employee, num - 1);
+
+					arr.splice(Math.floor(Math.random()*arr.length), 0, child);
+
+					console.log(arr);
+
+					return arr;
+			 	}
+
+			};
+			
+ 		})().init();
+	</script>
+</body>
+</html>
