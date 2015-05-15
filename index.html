@@ -6,20 +6,46 @@
 
 	<style type="text/css">
 		*{margin : 0; padding: 0;}
-		body{font: 12px/1.5 arial;}
+		body{font: 12px/1.5 arial; background-color:#07a1b1}
 
-		.section{width : 1000px; margin : 0 auto; padding : 40px}
-		.section-lf{width : 300px; float : left;}
-		.section-rt{overflow:hidden}
+		.section-inner{width : 1150px; height:798px; margin : 0 auto;}
+		.section-head{}
+		.section-con{}
+
+		.section-1{background:#07a1b1 url(src/img/cloud_02.png) no-repeat 0 bottom;}
+		.section-2{background:#fa8573 url(src/img/cloud_04.png) no-repeat 0 bottom;}
+		.section-3{background:#03d7a2 url(src/img/cloud_06.png) no-repeat 0 bottom;}
+		.section-4{background-color:#f8b258}
 	</style>
 </head>
 <body>
 
 	<div id="wrapper">
 
+		<div class="header">
+			<h3>Level 1</h3>
+		</div>
+
 		<div class="section section-1">
-			<div class="section-lf">Child Photo</div>
-			<div class="section-rt">
+			<div class="section-inner">
+			<div class="section-head">Child Photo</div>
+			<div class="section-con">
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="section section-2">
+			<div class="section-inner">
+			<div class="section-head">Child Photo</div>
+			<div class="section-con">
 				<div>
 					<img src="1.jpg" alt="" />
 					<img src="1.jpg" alt="" />
@@ -30,8 +56,42 @@
 				</div>
 			</div>
 		</div>
+		</div>
 
-		<button id="next">Next</button>
+		<div class="section section-3">
+			<div class="section-inner">
+			<div class="section-head">Child Photo</div>
+			<div class="section-con">
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<div class="section section-4">
+			<div class="section-inner">
+			<div class="section-head">Child Photo</div>
+			<div class="section-con">
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+			</div>
+				
+				<button id="next">Next</button>
+			</div>
+		</div>
+
 
 	</div>
 
