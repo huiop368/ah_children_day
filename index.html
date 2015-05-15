@@ -3,9 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Aerohive Children Day</title>
+
+	<style type="text/css">
+		*{margin : 0; padding: 0;}
+		body{font: 12px/1.5 arial;}
+
+		.section{width : 1000px; margin : 0 auto; padding : 40px}
+		.section-lf{width : 300px; float : left;}
+		.section-rt{overflow:hidden}
+	</style>
 </head>
 <body>
-	
+
+	<div id="wrapper">
+
+		<div class="section section-1">
+			<div class="section-lf">Child Photo</div>
+			<div class="section-rt">
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+				<div>
+					<img src="1.jpg" alt="" />
+					<img src="1.jpg" alt="" />
+				</div>
+			</div>
+		</div>
+
+		<button id="next">Next</button>
+
+	</div>
+
+	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+
 	<script type="text/javascript">
 		(function(){
 			var n = 170, m = 40,
@@ -17,10 +48,14 @@
 
 				_ret : [],
 
+				_startTime : +new Date(),
+
 				init : function(){
+					
 					this._prepare();		
 
-					//this.setStep(this.step);
+					this._rendUI();
+					this._bindUI();
 				},
 
 				_prepare : function(){
@@ -43,8 +78,16 @@
 						}
 					}
 
-					console.log(this._ret, this.employee);
+					console.log(this._ret);
 
+				},
+
+				_rendUI : function(){
+					this.setStep(this.step);	  
+				},
+
+				_bindUI : function(){
+					$('#wrapper').on('click', '#next', $.proxy(this._handleClickBtn, this));
 				},
 
 				goNext : function(){
@@ -54,9 +97,17 @@
 				},
 
 				setStep : function(num){
-					var arr = [];		  
+					var arr = this._ret[num];		  
 
 					
+				},
+
+				_handleClickBtn : function(e){
+					if(this.step >= 3){
+						//$.post('',data).done();				  
+					}else{
+						this.goNext();
+					}			  
 				},
 
 				_makeArr : function(n){
@@ -73,7 +124,7 @@
 					var i = 0, ret = [], j;
 				 	for(; i < k; i++){
 						j = Math.floor(Math.random()*arr.length);				 
-						ret.push(j);
+						ret.push(arr[j]);
 						arr.splice(j, 1);
 					}				 
 
@@ -85,7 +136,7 @@
 						num = i + j * 2,
 						arr;
 
-					this.employee.splice(child, 1);
+					this.employee.splice(this.employee.indexOf(child), 1);
 
 					arr = this._makeRandomArr(this.employee, num - 1);
 
