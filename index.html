@@ -11,6 +11,8 @@
 		.section-inner{width : 1150px; height:798px; margin : 0 auto;}
 		.section-head{}
 		.section-con{}
+		.section-con img{width:120px;height:120px;border:6px solid #fff; border-radius:5px;}
+		/*.section-con img:hover{border-color:yellow}*/
 
 		.section-1{background:#07a1b1 url(src/img/cloud_02.png) no-repeat 0 bottom;}
 		.section-2{background:#fa8573 url(src/img/cloud_04.png) no-repeat 0 bottom;}
@@ -108,14 +110,29 @@
 
 				_ret : [],
 
+				els : {
+					'sections' : '.section'
+				},
+
+				events : {
+					'click #next' : '_handleClickBtn'
+				},
+
 				_startTime : +new Date(),
 
 				init : function(){
 					
 					this._prepare();		
 
+					if(this.els){
+						this._attachEls();
+					}
+
+					if(this.events){
+						this._bindEvents();
+					}
+
 					this._rendUI();
-					this._bindUI();
 				},
 
 				_prepare : function(){
@@ -142,13 +159,29 @@
 
 				},
 
+				_attachEls : function(){
+					var i, dd;
+					
+				 	for(i in this.els){
+						dd = this.els[i];			 
+						this[i] = $(dd);
+					}			 
+				},
+
+				_bindEvents : function(){
+					var i, dd, reg = /^(\S+)\s*(.*)$/, match;			  
+
+					for(i in this.events){
+						dd = this[this.events[i]];
+						match = i.match(reg);
+						$('#wrapper').on(match[1], match[2], $.proxy(dd, this));
+					}
+				},
+
 				_rendUI : function(){
 					this.setStep(this.step);	  
 				},
 
-				_bindUI : function(){
-					$('#wrapper').on('click', '#next', $.proxy(this._handleClickBtn, this));
-				},
 
 				goNext : function(){
 					this.step++;		 
@@ -159,7 +192,7 @@
 				setStep : function(num){
 					var arr = this._ret[num];		  
 
-					
+					this._makeSubjects(arr);
 				},
 
 				_handleClickBtn : function(e){
@@ -168,6 +201,38 @@
 					}else{
 						this.goNext();
 					}			  
+				},
+
+				_makeSubjects : function(arr){
+					var ret = [];
+
+					$.each(arr, function(i,items){
+											
+					var str = '', head = items.shift(), len = items.length;
+
+					str += '<div class="section-head"><img src="'+head+'.jpg" /></div>';
+					str += '<div class="section-con">';
+
+					$.each(items, function(i, num){
+
+						if(i == 0 || i == len/2 ){
+							str += '<ul>';
+						}
+
+						str += '<li><img src="'+num+'.jpg" /></li>';
+
+						if(i == len/2 -1 || i == len-1){
+							str += '</ul>';
+						}
+					});				
+
+					str += '</div>'
+
+					ret.push(str);
+					
+					});
+
+					console.log(ret);
 				},
 
 				_makeArr : function(n){
