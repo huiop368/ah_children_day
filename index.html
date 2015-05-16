@@ -6,92 +6,61 @@
 
 	<style type="text/css">
 		*{margin : 0; padding: 0;}
+		ul{list-style:none}
 		body{font: 12px/1.5 arial; background-color:#07a1b1}
 
 		.section-inner{width : 1150px; height:798px; margin : 0 auto;}
-		.section-head{}
+		.section-head{text-align:center}
+		.section-head img{width : 290px; height : 250px; border:6px solid #fff; border-radius:5px;}
 		.section-con{}
-		.section-con img{width:120px;height:120px;border:6px solid #fff; border-radius:5px;}
-		/*.section-con img:hover{border-color:yellow}*/
+		.section-con img{width:120px;height:120px;border:6px solid #fff; border-radius:5px; cursor:pointer}
+		.section-con img:hover,
+		.section-con img.active{border-color:yellow}
 
 		.section-1{background:#07a1b1 url(src/img/cloud_02.png) no-repeat 0 bottom;}
 		.section-2{background:#fa8573 url(src/img/cloud_04.png) no-repeat 0 bottom;}
 		.section-3{background:#03d7a2 url(src/img/cloud_06.png) no-repeat 0 bottom;}
 		.section-4{background-color:#f8b258}
+
+		.section-list{overflow:hidden; margin-top : 15px}
+		.section-list li{float:left; text-align:center}
+		.section-list0 li{width : 50%}
+		.section-list1 li{width : 33.3%}
+		.section-list2 li{width : 25%}
+		.section-list3 li{width : 20%}
 	</style>
 </head>
 <body>
 
 	<div id="wrapper">
 
-		<div class="header">
+		<div id="header" class="header">
 			<h3>Level 1</h3>
 		</div>
 
 		<div class="section section-1">
 			<div class="section-inner">
-			<div class="section-head">Child Photo</div>
-			<div class="section-con">
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
-			</div>
+			
 			</div>
 		</div>
 
 		<div class="section section-2">
 			<div class="section-inner">
-			<div class="section-head">Child Photo</div>
-			<div class="section-con">
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
+			
 			</div>
-		</div>
 		</div>
 
 		<div class="section section-3">
 			<div class="section-inner">
-			<div class="section-head">Child Photo</div>
-			<div class="section-con">
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
+			
 			</div>
-		</div>
 		</div>
 
 		<div class="section section-4">
 			<div class="section-inner">
-			<div class="section-head">Child Photo</div>
-			<div class="section-con">
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
-				<div>
-					<img src="1.jpg" alt="" />
-					<img src="1.jpg" alt="" />
-				</div>
-			</div>
 				
-				<button id="next">Next</button>
 			</div>
+			<button id="next">Next</button>
 		</div>
 
 
@@ -108,17 +77,29 @@
 
 				step : 0,
 
+				n : 1,
+
 				_ret : [],
 
+				_result : [],
+				
+
 				els : {
-					'sections' : '.section'
+					'sectionInners' : '.section-inner',
+					'headEl' : '#header'
 				},
 
 				events : {
-					'click #next' : '_handleClickBtn'
+					'click #next' : '_handleClickBtn',
+					'click .section-list img' : '_handleImgClick'
 				},
 
 				_startTime : +new Date(),
+
+				
+				/**
+				  *@Flow
+				  */
 
 				init : function(){
 					
@@ -141,9 +122,11 @@
 					this.employee = this._makeArr(n);
 					this.children = this._makeArr(m);
 
-					arr = this.usedChildren = this._makeRandomArr(this.children, topics);
+					this.usedChildren = this._makeRandomArr(this.children, topics);
 
-					console.log(this.usedChildren);
+					arr = this.usedChildren.slice(0);
+
+					//console.log(this.usedChildren);
 
 					for(var i = 0; i < checks; i++){
 						dd = this._ret[i] = [];
@@ -155,7 +138,8 @@
 						}
 					}
 
-					console.log(this._ret);
+					//console.log(this.usedChildren);
+					//console.log(this._ret);
 
 				},
 
@@ -183,30 +167,65 @@
 				},
 
 
+
+
+
 				goNext : function(){
+					if(!this._validate()) return;
+
 					this.step++;		 
 
 					this.setStep(this.step);
 				},
 
-				setStep : function(num){
-					var arr = this._ret[num];		  
+				setStep : function(step){
+					var arr = this._ret[step];		  
 
-					this._makeSubjects(arr);
+					this._makeSubjects(arr, step);
 				},
+
+
+
+				/**
+				  *@Events
+				  */
 
 				_handleClickBtn : function(e){
 					if(this.step >= 3){
 						//$.post('',data).done();				  
+						console.log(this._getScore());
 					}else{
 						this.goNext();
+						this.headEl[0].scrollIntoView();
 					}			  
 				},
 
-				_makeSubjects : function(arr){
-					var ret = [];
+				_handleImgClick : function(e){
+					var t = e.target,
+						$t = $(t),
+				  		i = +t.getAttribute('data-topic') - 1,
+						ans = t.getAttribute('data-ans'),
+						pa = $t.closest('.section-con');	
 
-					$.each(arr, function(i,items){
+					this._result[i] = this.usedChildren[i] + '-' + ans;
+
+					$('.active', pa[0]).removeClass('active');
+					$t.addClass('active');
+
+					console.log(this._result);
+			  	},
+
+
+
+
+				/**
+				  *@Help fns
+				  */
+
+				_makeSubjects : function(arr, step){
+					var ret = [], that = this;
+
+					$.each(arr, function(j,items){
 											
 					var str = '', head = items.shift(), len = items.length;
 
@@ -216,23 +235,30 @@
 					$.each(items, function(i, num){
 
 						if(i == 0 || i == len/2 ){
-							str += '<ul>';
+							str += '<ul class="section-list section-list'+step+'">';
 						}
 
-						str += '<li><img src="'+num+'.jpg" /></li>';
+						str += '<li><img src="'+num+'.jpg" data-topic="'+that.n+'" data-ans="'+num+'" /></li>';
 
 						if(i == len/2 -1 || i == len-1){
 							str += '</ul>';
 						}
+
 					});				
 
 					str += '</div>'
 
 					ret.push(str);
+
+					that.n++;
 					
 					});
 
-					console.log(ret);
+					this.sectionInners.each(function(i, el){
+						el.innerHTML = ret[i];		
+					});
+
+					//console.log(ret);
 				},
 
 				_makeArr : function(n){
@@ -267,10 +293,46 @@
 
 					arr.splice(Math.floor(Math.random()*arr.length), 0, child);
 
-					console.log(arr);
+					//console.log(arr);
 
 					return arr;
-			 	}
+			 	},
+
+				_validate : function(){
+					var f = true;
+
+				 	$.each(this._result, function(i, item){
+						if('undefined' === typeof item){
+							f = false;	
+							return false;
+						}			 
+					});
+
+					if(this._result.length < (this.step + 1) * checks || !f){
+						alert('Please answer all subjects.');
+						return false;
+					}			
+
+					return true;
+				},
+
+				_getScore : function(){
+					var sum = 0;
+
+					$.each(this._result, function(i, item){
+						var arr = item.split('-'),
+							f = arr[0] === arr[1],
+							m = Math.floor(i/4) * 25 + 25;		
+
+						sum += f ? m : 0;
+					});			
+
+					return sum/10;
+				},
+
+				_preLoadImg : function(arr){
+								  
+				}
 
 			};
 			
