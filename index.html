@@ -7,20 +7,24 @@
 	<style type="text/css">
 		*{margin : 0; padding: 0;}
 		ul{list-style:none}
+		img{border:none}
 		body{font: 12px/1.5 arial; background-color:#07a1b1}
 
-		.section-inner{width : 1150px; height:798px; margin : 0 auto;}
+		.header h3{font-size : 45px; color : #fff; text-align:center}
+
+		.section-inner{position:relative;width : 1150px; height:798px; margin : 0 auto;}
+		.section-outer{background:url(src/img/bg_cloud.png) no-repeat center center;}
 		.section-head{text-align:center}
-		.section-head img{width : 290px; height : 250px; border:6px solid #fff; border-radius:5px;}
+		.section-head img{width : 290px; height : 250px; background:url(src/img/frame_baby.png) no-repeat 0 0}
 		.section-con{}
 		.section-con img{width:120px;height:120px;border:6px solid #fff; border-radius:5px; cursor:pointer}
 		.section-con img:hover,
 		.section-con img.active{border-color:yellow}
 
-		.section-1{background:#07a1b1 url(src/img/cloud_02.png) no-repeat 0 bottom;}
-		.section-2{background:#fa8573 url(src/img/cloud_04.png) no-repeat 0 bottom;}
-		.section-3{background:#03d7a2 url(src/img/cloud_06.png) no-repeat 0 bottom;}
-		.section-4{background-color:#f8b258}
+		.section-1{background:#07a1b1 url(src/img/cloud_02.png) repeat-x 0 bottom;}
+		.section-2{background:#fa8573 url(src/img/cloud_04.png) repeat-x 0 bottom;}
+		.section-3{background:#03d7a2 url(src/img/cloud_06.png) repeat-x 0 bottom;}
+		.section-4{background-color:#f8b258; padding-bottom:30px}
 
 		.section-list{overflow:hidden; margin-top : 15px}
 		.section-list li{float:left; text-align:center}
@@ -28,6 +32,13 @@
 		.section-list1 li{width : 33.3%}
 		.section-list2 li{width : 25%}
 		.section-list3 li{width : 20%}
+
+		.section-num{position:absolute; top : 0; left : 0; font-size:30px; color : #fff;}
+
+		.section-btn-wrapper{text-align:center}
+		.section-btn{
+			padding:15px 45px; background-color:#fa8573; -webkit-border-radius : 5px; -moz-border-radius:5px; border-radius:5px; 
+			color : #fff; font-weight : 700; border:none; cursor:pointer; font-size : 16px; outline:none}
 	</style>
 </head>
 <body>
@@ -35,32 +46,41 @@
 	<div id="wrapper">
 
 		<div id="header" class="header">
-			<h3>Level 1</h3>
+			<h3>Level <span id="level">1</span></h3>
 		</div>
 
 		<div class="section section-1">
+			<div class="section-outer">
 			<div class="section-inner">
 			
+			</div>
 			</div>
 		</div>
 
 		<div class="section section-2">
+			<div class="section-outer">
 			<div class="section-inner">
 			
+			</div>
 			</div>
 		</div>
 
 		<div class="section section-3">
+			<div class="section-outer">
 			<div class="section-inner">
 			
+			</div>
 			</div>
 		</div>
 
 		<div class="section section-4">
-			<div class="section-inner">
+			<div class="section-outer">
+				<div class="section-inner">
 				
+				</div>
+			
+				<p class="section-btn-wrapper"><button id="next" class="section-btn">Next</button></p>
 			</div>
-			<button id="next">Next</button>
 		</div>
 
 
@@ -86,7 +106,8 @@
 
 				els : {
 					'sectionInners' : '.section-inner',
-					'headEl' : '#header'
+					'headEl' : '#header',
+					'levelEl' : '#level'
 				},
 
 				events : {
@@ -181,6 +202,8 @@
 				setStep : function(step){
 					var arr = this._ret[step];		  
 
+					this.levelEl.text(step + 1);
+
 					this._makeSubjects(arr, step);
 				},
 
@@ -246,7 +269,8 @@
 
 					});				
 
-					str += '</div>'
+					str += '</div>';
+					str += '<span class="section-num">'+that.n+'.</span>';
 
 					ret.push(str);
 
