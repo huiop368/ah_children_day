@@ -39,6 +39,10 @@
 		.section-btn{
 			padding:15px 45px; background-color:#fa8573; -webkit-border-radius : 5px; -moz-border-radius:5px; border-radius:5px; 
 			color : #fff; font-weight : 700; border:none; cursor:pointer; font-size : 16px; outline:none}
+
+		.mask{display:none; position:absolute; top : 0; bottom : 0; left:0; right:0; background:#000; opacity: 0.5;}
+
+		#wrapper{position:relative}
 	</style>
 </head>
 <body>
@@ -83,7 +87,7 @@
 			</div>
 		</div>
 
-
+		<div id="mask" class="mask"></div>
 	</div>
 
 	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
@@ -107,7 +111,8 @@
 				els : {
 					'sectionInners' : '.section-inner',
 					'headEl' : '#header',
-					'levelEl' : '#level'
+					'levelEl' : '#level',
+					'maskEl' : '#mask'
 				},
 
 				events : {
