@@ -21,7 +21,7 @@
 		.section-con img:hover,
 		.section-con img.active{border-color:yellow}
 
-		.section-1{background:#07a1b1 url(src/img/cloud_02.png) repeat-x 0 bottom;}
+		.section-1{background:url(src/img/cloud_02.png) repeat-x 0 bottom;}
 		.section-2{background:#fa8573 url(src/img/cloud_04.png) repeat-x 0 bottom;}
 		.section-3{background:#03d7a2 url(src/img/cloud_06.png) repeat-x 0 bottom;}
 		.section-4{background-color:#f8b258; padding-bottom:30px}
@@ -38,17 +38,20 @@
 		.section-btn-wrapper{text-align:center}
 		.section-btn{
 			padding:15px 45px; background-color:#fa8573; -webkit-border-radius : 5px; -moz-border-radius:5px; border-radius:5px; 
-			color : #fff; font-weight : 700; border:none; cursor:pointer; font-size : 16px; outline:none}
+			color : #fff; font-weight : 700; border:none; cursor:pointer; font-size : 16px; outline:none; letter-spacing : 2px
+		}
 
 		.mask{display:none; position:absolute; top : 0; bottom : 0; left:0; right:0; background:#000; opacity: 0.5;}
 
 		#wrapper{position:relative}
+		.wrapper-inner{background:url(src/img/bg_light.png) no-repeat 0 0;}
 	</style>
 </head>
 <body>
 
 	<div id="wrapper">
-
+		<div class="wrapper-inner">
+			
 		<div id="header" class="header">
 			<h3>Level <span id="level">1</span></h3>
 		</div>
@@ -85,6 +88,8 @@
 			
 				<p class="section-btn-wrapper"><button id="next" class="section-btn">Next</button></p>
 			</div>
+		</div>
+
 		</div>
 
 		<div id="mask" class="mask"></div>
