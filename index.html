@@ -128,7 +128,6 @@
 				  */
 
 				init : function(){
-					
 					this._prepare();		
 
 					if(this.els){
@@ -166,6 +165,8 @@
 
 					//console.log(this.usedChildren);
 					//console.log(this._ret);
+
+					//this._preloadImg(this._ret);
 
 				},
 
@@ -257,6 +258,9 @@
 											
 					var str = '', head = items.shift(), len = items.length;
 
+					// @TODO
+					// We may need change child name not to be number
+					// array[head]
 					str += '<div class="section-head"><img src="'+head+'.jpg" /></div>';
 					str += '<div class="section-con">';
 
@@ -359,8 +363,18 @@
 					return sum/10;
 				},
 
-				_preLoadImg : function(arr){
-								  
+				_preloadImg : function(arr){
+					var d = location.href.lastIndexOf('/'),
+						url = location.href.substring(0, d+1);
+
+					$.each(arr, function(i, ret){
+						$.each(ret, function(j, ts){
+							$.each(ts, function(k, src){
+								var img = new Image();		
+								img.src = url + src + '.jpg';	
+							});
+						});		
+					});			  
 				}
 
 			};
