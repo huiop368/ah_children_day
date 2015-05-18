@@ -10,14 +10,15 @@
 		img{border:none}
 		body{font: 12px/1.5 arial; background-color:#07a1b1}
 
+		.header{padding-bottom:30px}
 		.header h3{font-size : 45px; color : #fff; text-align:center}
 
 		.section-inner{position:relative;width : 1150px; height:798px; margin : 0 auto;}
-		.section-outer{background:url(src/img/bg_cloud.png) no-repeat center center;}
-		.section-head{text-align:center}
+		.section-outer{position:relative;background:url(src/img/bg_cloud.png) no-repeat center center;}
+		.section-head{text-align:center; background:url(src/img/img_baby.png) no-repeat center 0;}
 		.section-head img{width : 290px; height : 250px; background:url(src/img/frame_baby.png) no-repeat 0 0}
 		.section-con{}
-		.section-con img{width:120px;height:120px;border:6px solid #fff; border-radius:5px; cursor:pointer}
+		.section-con img{width:140px; height:140px; background:url(src/img/img_parent.png) no-repeat 0 0; border:8px solid rgba(255,255,255,0.6); border-radius:8px; cursor:pointer}
 		.section-con img:hover,
 		.section-con img.active{border-color:yellow}
 
@@ -26,7 +27,7 @@
 		.section-3{background:#03d7a2 url(src/img/cloud_06.png) repeat-x 0 bottom;}
 		.section-4{background-color:#f8b258; padding-bottom:30px}
 
-		.section-list{overflow:hidden; margin-top : 15px}
+		.section-list{overflow:hidden; margin-top : 30px}
 		.section-list li{float:left; text-align:center}
 		.section-list0 li{width : 50%}
 		.section-list1 li{width : 33.3%}
@@ -35,9 +36,10 @@
 
 		.section-num{position:absolute; top : 0; left : 0; font-size:30px; color : #fff;}
 
-		.section-btn-wrapper{text-align:center}
+		/*.section-btn-wrapper{text-align:center}*/
 		.section-btn{
-			padding:15px 45px; background-color:#fa8573; -webkit-border-radius : 5px; -moz-border-radius:5px; border-radius:5px; 
+			position:absolute; bottom:20px; left : 50%; margin-left : -70px;padding:15px 45px; 
+			background-color:#fa8573; -webkit-border-radius : 5px; -moz-border-radius:5px; border-radius:5px; 
 			color : #fff; font-weight : 700; border:none; cursor:pointer; font-size : 16px; outline:none; letter-spacing : 2px
 		}
 
@@ -85,8 +87,8 @@
 				<div class="section-inner">
 				
 				</div>
-			
-				<p class="section-btn-wrapper"><button id="next" class="section-btn">Next</button></p>
+
+				<button id="btn" class="section-btn">Next</button>
 			</div>
 		</div>
 
@@ -121,7 +123,7 @@
 				},
 
 				events : {
-					'click #next' : '_handleClickBtn',
+					'click #btn' : '_handleClickBtn',
 					'click .section-list img' : '_handleImgClick'
 				},
 
@@ -203,8 +205,6 @@
 
 
 				goNext : function(){
-					if(!this._validate()) return;
-
 					this.step++;		 
 
 					this.setStep(this.step);
@@ -229,7 +229,10 @@
 						//$.post('',data).done();				  
 						console.log(this._getScore());
 					}else{
+						if(!this._validate()) return;
 						this.goNext();
+
+						// @TODO may use animation
 						this.headEl[0].scrollIntoView();
 					}			  
 				},
