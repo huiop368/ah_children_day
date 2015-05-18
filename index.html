@@ -20,7 +20,7 @@
 		.section-con{}
 		.section-con img{width:140px; height:140px; background:url(src/img/img_parent.png) no-repeat 0 0; border:8px solid rgba(255,255,255,0.6); border-radius:8px; cursor:pointer}
 		.section-con img:hover,
-		.section-con img.active{border-color:yellow}
+		.section-con img.active{border-color:#fff}
 
 		.section-1{background:url(src/img/cloud_02.png) repeat-x 0 bottom;}
 		.section-2{background:#fa8573 url(src/img/cloud_04.png) repeat-x 0 bottom;}
@@ -28,7 +28,9 @@
 		.section-4{background-color:#f8b258; padding-bottom:30px}
 
 		.section-list{overflow:hidden; margin-top : 30px}
-		.section-list li{float:left; text-align:center}
+		.section-list li{float:left; text-align:center; position:relative}
+		.section-list li::after{position:absolute; top: 0; display:none; content : url(src/img/chosen_stamp.png);}
+		.section-list li.active::after{display:block}
 		.section-list0 li{width : 50%}
 		.section-list1 li{width : 33.3%}
 		.section-list2 li{width : 25%}
@@ -119,7 +121,8 @@
 					'sectionInners' : '.section-inner',
 					'headEl' : '#header',
 					'levelEl' : '#level',
-					'maskEl' : '#mask'
+					'maskEl' : '#mask',
+					'btnEl' : '#btn'
 				},
 
 				events : {
@@ -215,6 +218,10 @@
 
 					this.levelEl.text(step + 1);
 
+					if(step === 3){
+						this.btnEl.text('Submit');
+					}
+
 					this._makeSubjects(arr, step);
 				},
 
@@ -230,24 +237,26 @@
 						console.log(this._getScore());
 					}else{
 						if(!this._validate()) return;
-						this.goNext();
 
-						// @TODO may use animation
-						this.headEl[0].scrollIntoView();
+						$('body').animate({scrollTop : '0px'}, 200);
+						this.maskEl.fadeTo(200, 0.6).fadeTo(400, 0, $.proxy(function(){this.maskEl.hide();},this));
+
+						this.goNext();
 					}			  
 				},
 
 				_handleImgClick : function(e){
 					var t = e.target,
-						$t = $(t),
+						$t = $(t), cur = 'active',
 				  		i = +t.getAttribute('data-topic') - 1,
 						ans = t.getAttribute('data-ans'),
-						pa = $t.closest('.section-con');	
+						con = $t.closest('.section-con');	
 
 					this._result[i] = this.usedChildren[i] + '-' + ans;
 
-					$('.active', pa[0]).removeClass('active');
-					$t.addClass('active');
+					$('.'+cur, con[0]).removeClass(cur);
+					//$t.addClass(cur);
+					$(t).parent('li').addClass(cur);
 
 					console.log(this._result);
 			  	},
