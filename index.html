@@ -8,7 +8,9 @@
 		*{margin : 0; padding: 0;}
 		ul{list-style:none}
 		img{border:none}
-		body{font: 12px/1.5 arial; background-color:#07a1b1}
+		body{font: 12px/1.5 arial; background-color:#07a1b1; -webkit-transition: background-color 6s ease;}
+
+		body.black{background-color : #1d1f20}
 
 		.header{padding-bottom:30px}
 		.header h3{font-size : 45px; color : #fff; text-align:center}
@@ -27,9 +29,9 @@
 		.section-3{background:#03d7a2 url(src/img/cloud_06.png) repeat-x 0 bottom;}
 		.section-4{background-color:#f8b258; padding-bottom:30px}
 
-		.section-list{overflow:hidden; margin-top : 30px}
+		.section-list{ margin-top : 30px}
 		.section-list li{float:left; text-align:center; position:relative}
-		.section-list li::after{position:absolute; top: 0; display:none; content : url(src/img/chosen_stamp.png);}
+		.section-list li::after{position:absolute; top: 90px; left:43%; display:none; content : url(src/img/chosen.png);}
 		.section-list li.active::after{display:block}
 		.section-list0 li{width : 50%}
 		.section-list1 li{width : 33.3%}
@@ -38,7 +40,6 @@
 
 		.section-num{position:absolute; top : 0; left : 0; font-size:30px; color : #fff;}
 
-		/*.section-btn-wrapper{text-align:center}*/
 		.section-btn{
 			position:absolute; bottom:20px; left : 50%; margin-left : -70px;padding:15px 45px; 
 			background-color:#fa8573; -webkit-border-radius : 5px; -moz-border-radius:5px; border-radius:5px; 
@@ -49,6 +50,97 @@
 
 		#wrapper{position:relative}
 		.wrapper-inner{background:url(src/img/bg_light.png) no-repeat 0 0;}
+		
+		.clearfix:after {
+  			display: block;
+  			content: '';
+  			clear: both;
+  			font-size: 0;
+  			line-height: 0;
+  			visibility: hidden;
+		}
+
+
+		/**
+		  *@Animate for plus level
+		  */
+		.animate1{
+			-webkit-animation : transform1 0.5s ease 0s alternate none;
+			-moz-animation : transform1 0.5s ease 0s alternate none;
+			-ms-animation : transform1 0.5s ease 0s alternate none;
+			animation : transform1 0.5s ease 0s alternate none;
+		}
+
+		.animate2{
+			-webkit-animation : transform2 0.5s ease 0s alternate none;
+			-moz-animation : transform2 0.5s ease 0s alternate none;
+			-ms-animation : transform2 0.5s ease 0s alternate none;
+			animation : transform2 0.5s ease 0s alternate none;
+		}
+
+		@-webkit-keyframes transform1 {
+			0% {
+				-webkit-transform:perspective(400px) rotateY(0deg);
+			}
+			100% {
+				-webkit-transform:perspective(400px) translateZ(350px) rotateY(180deg);
+				opacity: 0;
+			}
+		}
+
+		@-moz-keyframes transform1 {
+			0% {
+				-webkit-transform:perspective(400px) rotateY(0deg);
+			}
+			100% {
+				-webkit-transform:perspective(400px) translateZ(350px) rotateY(180deg);
+				opacity: 0;
+			}
+		}
+
+		@-ms-keyframes transform1 {
+			0% {
+				-webkit-transform:perspective(400px) rotateY(0deg);
+			}
+			100% {
+				-webkit-transform:perspective(400px) translateZ(350px) rotateY(180deg);
+				opacity: 0;
+			}
+		}
+
+
+
+		@-webkit-keyframes transform2 {
+			0% {
+				-webkit-transform: rotate(0deg) scale(1);
+			}
+			100% {
+				-webkit-transform: rotate(720deg) scale(8);
+				opacity: 0;
+			}
+		}
+
+		@-moz-keyframes transform2 {
+			0% {
+				-webkit-transform:rotate(0deg) scale(1);
+			}
+			100% {
+				-webkit-transform:rotate(720deg) scale(8);
+				opacity: 0;
+			}
+		}
+
+		@-ms-keyframes transform2 {
+			0% {
+				-webkit-transform:rotate(0deg) scale(1);
+			}
+			100% {
+				-webkit-transform:rotate(720deg) scale(8);
+				opacity: 0;
+			}
+		}
+
+		
 	</style>
 </head>
 <body>
@@ -66,6 +158,7 @@
 			
 			</div>
 			</div>
+			<button id="add">Add</button>
 		</div>
 
 		<div class="section section-2">
@@ -115,19 +208,27 @@
 				_ret : [],
 
 				_result : [],
+
+				$el : $('#wrapper'),
 				
+				$ : function(selector){
+					return this.$el.find(selector);
+				},
 
 				els : {
 					'sectionInners' : '.section-inner',
+					'sections' : '.section',
 					'headEl' : '#header',
 					'levelEl' : '#level',
 					'maskEl' : '#mask',
-					'btnEl' : '#btn'
+					'btnEl' : '#btn',
+					'wrapper' : '#wrapper'
 				},
 
 				events : {
 					'click #btn' : '_handleClickBtn',
-					'click .section-list img' : '_handleImgClick'
+					'click .section-list img' : '_handleImgClick',
+					'click #add' : '_testAnimate'
 				},
 
 				_startTime : +new Date(),
@@ -195,7 +296,7 @@
 					for(i in this.events){
 						dd = this[this.events[i]];
 						match = i.match(reg);
-						$('#wrapper').on(match[1], match[2], $.proxy(dd, this));
+						this.$el.on(match[1], match[2], $.proxy(dd, this));
 					}
 				},
 
@@ -262,6 +363,10 @@
 			  	},
 
 
+				_testAnimate : function(){
+					//$('img[data-topic]').eq(0).addClass('animate2');			   
+					this._startShow();
+				},
 
 
 				/**
@@ -284,7 +389,7 @@
 					$.each(items, function(i, num){
 
 						if(i == 0 || i == len/2 ){
-							str += '<ul class="section-list section-list'+step+'">';
+							str += '<ul class="clearfix section-list section-list'+step+'">';
 						}
 
 						str += '<li><img src="'+num+'.jpg" data-topic="'+that.n+'" data-ans="'+num+'" /></li>';
@@ -392,6 +497,56 @@
 							});
 						});		
 					});			  
+				},
+
+
+				/**
+				  *@Show is beginning
+				  */
+				_startShow : function(){
+					var anis = ['animate1', 'animate2'],
+						that = this, imgs, len;
+					// remove no need section
+					this.sections.each(function(i, section){
+							if(i > 0) $(section).remove();		
+					});
+
+					imgs = this.sections.eq(0).find('img');
+
+					this.$('.active').removeClass('active');
+
+					imgs.each(function(i, img){
+						that._prefixedEve(img, 'add', function(){this.style.display = 'none';});
+					});
+
+					imgs.each(function(i, img){
+						var $t = $(img);		
+
+						setTimeout(function(){
+							$t.addClass(anis[Math.floor(Math.random()*anis.length)]);
+						}, 300 * i);
+					});
+
+					this._removeSomething();
+					$('body').addClass('black');
+					
+			 	},
+
+				_prefixedEve : function(el,ac,callback){
+					var pfx = ['webkit','moz','MS','o',''];
+
+					$.each(pfx,function(i,item){
+						var type = item ? 'AnimationEnd' : 'animationend';
+						el[ac+'EventListener'](item + type, callback, false);
+					});
+				},
+
+				_removeSomething : function(){
+					this.$('.section-num').remove();				   
+					this.$('h3').text('');
+					this.$('.section-outer').css('background','none');
+					this.$('.wrapper-inner').css('background', 'none');
+					this.$('.section-1').css('background', 'none');
 				}
 
 			};
