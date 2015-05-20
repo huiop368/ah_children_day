@@ -40,7 +40,7 @@
 
 		.section-num{position:absolute; top : 0; left : 0; font-size:30px; color : #fff;}
 
-		.btn-area{position:absolute; bottom:20px; left : 50%; margin-left : -168px;}
+		.btn-area{position:absolute; width:100%; bottom:20px; text-align:center}
 		.section-btn{
 			padding:15px 45px; margin-left : 30px;
 			background-color:#fa8573; -webkit-border-radius : 5px; -moz-border-radius:5px; border-radius:5px; 
@@ -214,6 +214,8 @@
 
 				_result : [],
 
+				_cache : [],
+
 				$el : $('#wrapper'),
 				
 				$ : function(selector){
@@ -234,7 +236,8 @@
 				events : {
 					'click #btn' : '_handleClickBtn',
 					'click .section-list img' : '_handleImgClick',
-					'click #add' : '_testAnimate'
+					'click #add' : '_testAnimate',
+					'click #prevbtn' : '_handleClickPrev'
 				},
 
 				_startTime : +new Date(),
@@ -268,8 +271,6 @@
 
 					arr = this.usedChildren.slice(0);
 
-					//console.log(this.usedChildren);
-
 					for(var i = 0; i < checks; i++){
 						dd = this._ret[i] = [];
 						for(var j = 0; j < per; j++){
@@ -279,9 +280,6 @@
 							arr.splice(0,1);
 						}
 					}
-
-					//console.log(this.usedChildren);
-					//console.log(this._ret);
 
 					//this._preloadImg(this._ret);
 
@@ -308,6 +306,8 @@
 
 				_rendUI : function(){
 					this.setStep(this.step);	  
+					
+					this.levelEl.text(this.step + 1);
 				},
 
 
@@ -315,24 +315,51 @@
 
 
 				goNext : function(){
+					var dd;
+
+					this._cache[this.step] = this._getCacheHtml();
+
 					this.step++;		 
 
-					this.setStep(this.step);
+					this.levelEl.text(this.step + 1);
+
+					if(dd = this._cache[this.step]){
+						this._rendCache(this.step);
+					}else{
+						this.setStep(this.step);
+					}
+
+					if(this.step > 0){
+						this.prevEl.show();
+					}
+
+					if(this.step === 3){
+						this.btnEl.text('Submit');
+					}
 				},
 
-				goPrevious : function(){
+				goPrev : function(){
+					this._cache[this.step] = this._getCacheHtml();
+
 					this.step--;
+
+					this.levelEl.text(this.step + 1);
 			 		
+					this._rendCache(this.step);
+
+					if(this.step === 0){
+						this.prevEl.hide();
+					}
+
+					if(this.step < 3){
+						this.btnEl.text('Next');
+					}
 			 	},
 
 				setStep : function(step){
 					var arr = this._ret[step];		  
 
-					this.levelEl.text(step + 1);
-
-					if(step === 3){
-						this.btnEl.text('Submit');
-					}
+					//this.levelEl.text(step + 1);
 
 					this._makeSubjects(arr, step);
 				},
@@ -348,10 +375,10 @@
 						//$.post('',data).done();				  
 						console.log(this._getScore());
 					}else{
-						if(!this._validate()) return;
+						// TODO may be remove to post
+						//if(!this._validate()) return;
 
-						$('body').animate({scrollTop : '0px'}, 200);
-						this.maskEl.fadeTo(200, 0.6).fadeTo(400, 0, $.proxy(function(){this.maskEl.hide();},this));
+						this._scrollTop();
 
 						this.goNext();
 					}			  
@@ -372,6 +399,11 @@
 
 					console.log(this._result);
 			  	},
+
+				_handleClickPrev : function(e){
+					this._scrollTop();
+				  	this.goPrev();
+				},
 
 
 				_testAnimate : function(){
@@ -510,7 +542,32 @@
 					});			  
 				},
 
+				_scrollTop : function(){
+					$('body').animate({scrollTop : '0px'}, 200);
+					this.maskEl.fadeTo(200, 0.6).fadeTo(400, 0, $.proxy(function(){this.maskEl.hide();},this));			 
+				},
 
+
+				/**
+				  *@For prev need cache some html
+				  */
+				_getCacheHtml : function(){
+					var ret = [];
+
+					this.sectionInners.each(function(i, inner){
+						ret.push(inner.innerHTML);		
+					});			
+
+					return ret;
+				},
+
+				_rendCache : function(n){
+					var that = this;
+					$.each(this._cache[n], function(i, tmpl){
+						that.sectionInners[i].innerHTML = tmpl;		
+					});			 
+				},
+				
 				/**
 				  *@Show is beginning
 				  */
