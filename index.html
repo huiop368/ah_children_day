@@ -8,16 +8,25 @@
 		*{margin : 0; padding: 0;}
 		ul{list-style:none}
 		img{border:none}
-		body{font: 12px/1.5 arial; background-color:#07a1b1; -webkit-transition: background-color 6s ease;}
+		body{font: 12px/1.5 arial; background-color:#07a1b1;}
 
 		body.black{background-color : #1d1f20}
+
+		.clearfix:after {
+  			display: block;
+  			content: '';
+  			clear: both;
+  			font-size: 0;
+  			line-height: 0;
+  			visibility: hidden;
+		}
 
 		.header{padding-bottom:30px}
 		.header h3{font-size : 45px; color : #fff; text-align:center}
 
 		.section-inner{position:relative;width : 1150px; height:798px; margin : 0 auto;}
 		.section-outer{position:relative;background:url(src/img/bg_cloud.png) no-repeat center center;}
-		.section-head{text-align:center; background:url(src/img/img_baby.png) no-repeat center 0;}
+		.section-head{text-align:center; 1background:url(src/img/img_baby.png) no-repeat center 0;}
 		.section-head img{width : 290px; height : 250px; background:url(src/img/frame_baby.png) no-repeat 0 0}
 		.section-con{}
 		.section-con img{width:140px; height:140px; background:url(src/img/loading.gif) no-repeat 0 0; border:8px solid rgba(255,255,255,0.6); border-radius:8px; cursor:pointer}
@@ -56,15 +65,107 @@
 		#wrapper{position:relative}
 		#btn{margin-left : 30px;}
 		.wrapper-inner{background:url(src/img/bg_light.png) no-repeat 0 0;}
-		
-		.clearfix:after {
-  			display: block;
-  			content: '';
-  			clear: both;
-  			font-size: 0;
-  			line-height: 0;
-  			visibility: hidden;
+
+
+		.stage-txt{
+			width: 720px;
+  			margin: 0 auto;
+  			color: #fff;
+  			padding-top: 160px;
+  			font-size: 50px;
+  			text-shadow: 0px 0px 10px #fff;
+  			font-style: italic;
 		}
+
+		.stage-con{
+			letter-spacing: 10px;
+  			word-spacing: 10px;
+		}
+
+		#stage2-title{
+			  letter-spacing: 5px;
+			  font-size : 60px
+		}
+
+		#stage2-con{
+			text-indent: 80px;
+  			letter-spacing: 10px;
+  			word-spacing: 10px;
+		}
+
+		.stage2-btm{
+			padding: 60px 100px 0 80px;
+		}
+
+		#stage2-yes,
+		#stage2-no{
+			float:right;
+			cursor : pointer;
+			-webkit-transition: text-shadow 0.2s ease;
+			-moz-transition: text-shadow 0.2s ease;
+			-ms-transition: text-shadow 0.2s ease;
+			transition: text-shadow 0.2s ease;
+		}
+		#stage2-no{margin-left : 30px;}
+		
+		#stage2-yes:hover,
+		#stage2-no:hover{
+			text-shadow : 0px 0px 10px yellow;
+		}
+
+
+		#page{position:absolute; width:100%; top:0; left : 0; right:0;bottom:0; background-color:#1d1f20;}
+		.page-tran{-webkit-transition : transform 2s ease-in-out; -moz-transition : transform 2s ease-in-out;-ms-transition : transform 2s ease-in-out;transition : transform 2s ease-in-out;}
+		.page-circle{position:absolute; width:100px; height:100px;bottom:-20px; left : 50%; margin-left:-50px; background:url(src/img/cir.png) no-repeat 0 0 }
+		.page-bee{position:absolute;width:110px; height:110px; bottom:-120px; left : 50%; margin-left:-52px; background:url(src/img/bee.gif) no-repeat 0 0 }
+		.page-left,
+		.page-right{
+			position:absolute;
+			width : 600px;
+			height : 90px;
+			bottom:0;
+		}
+		.page-left{
+			left:0;
+			background:url(src/img/pl.png) no-repeat 0 0;
+		}
+
+		.page-right{
+			right : 0;
+			background:url(src/img/pr.png) no-repeat 0 0;
+		}
+
+		.heart{width:160px;height:200px;position:relative;display:none}
+		.heart:before{
+			content:" ";
+			border-radius:100px 100px 0 0;
+			width:80px; height:120px;
+			background:#ff0000;
+			-moz-transform: rotate(-45deg);
+			-ms-transform: rotate(-45deg);
+			-webkit-transform: rotate(-45deg);
+			position:absolute;
+			left:20px;
+			-webkit-animation: heart1 2s infinite ease-out;
+		}
+		.heart:after{
+			content:" ";
+			width:80px; height:120px;
+			background:#ff0000;
+			border-radius:100px 100px 0 0;
+			-moz-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			-webkit-transform: rotate(45deg); 
+			position:absolute;
+			left:48px;top:0px;
+			-webkit-animation: heart1 1s infinite ease-out;
+			-moz-animation: heart1 1s infinite ease-out;
+			-ms-animation: heart1 1s infinite ease-out;
+			-animation: heart1 1s infinite ease-out;
+		}
+
+
+		#ceb-egg{display:none; width:220px; height:300px; position:absolute; bottom:30px; left:210px; background-color:#ff0000; cursor:pointer}
 
 
 		/**
@@ -147,177 +248,39 @@
 		}
 
 
-		/******************Person***********************/
-		.person {
-  position: absolute;
-  height: 75px;
-  width: 0;
-  color: #fff;
-  left: 150px;
-  top: 159px;
-  transform-origin: 50% 50% 0px;
-  -webkit-animation: sprint 4s ease-in;
-}
-.person .head:before {
-  content: "";
-  position: absolute;
-  top: 0px;
-  left: -6px;
-  height: 2.7px;
-  width: 42px;
-  border-radius: 20%;
-  border: 4px solid white;
-  background-color: #fff;
-  transform-origin: 50% 100% 0px;
-  z-index: 90;
-}
-.person .head {
-  position: absolute;
-  top: -30px;
-  left: -6px;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  border: 4px solid white;
-  transform-origin: 50% 100% 0px;
-  z-index: 90;
-  -webkit-animation: bob 2s infinite alternate;
-}
-.person .head:after {
-  content: "";
-  position: absolute;
-  top: -12px;
-  left: 9px;
-  height: 12px;
-  width: 15px;
-  border-radius: 30%;
-  border: 4px solid white;
-  background-color: #fff;
-  z-index: 90;
-}
-.person .torso {
-  position: absolute;
-  height: 60px;
-  width: 0;
-  border-left: 2px solid white;
-  left: 0px;
-  top: 15px;
-  z-index: 90;
-}
-.person .part {
-  position: absolute;
-  left: 0;
-  top: 75px;
-  z-index: 90;
-}
-.person .part.arm {
-  position: absolute;
-  border-left: 3px solid white;
-  border-bottom: 3px solid white;
-  height: 45px;
-  width: 39px;
-  top: 15px;
-  right: 300px;
-  transform-origin: 0% 0% 0px;
-  -webkit-animation: pump 1s infinite ease-in-out;
-}
-.person .part.arm.one {
-  transform: rotate3d(0, 0, 1, -90deg);
-}
-.person .part.arm.two {
-  transform: rotate3d(0, 0, 1, -90deg);
-  -webkit-animation-delay: .5s;
-}
-.person .part.leg {
-  height: 57px;
-  width: 60px;
-  border-right: 3px solid white;
-  border-top: 3px solid white;
-  -webkit-animation: run 1s infinite ease-in;
-  transform-origin: 0% 0% 0px;
-}
-.person .part.leg.one {
-  transform: rotate3d(0, 0, 1, 90deg);
-}
-.person .part.leg.two {
-  transform: rotate3d(0, 0, 1, 80deg);
-  -webkit-animation-delay: .5s;
-}
-.person .part .foot {
-  position: absolute;
-  top: 90px;
-  left: 0;
-  width: 3px;
-  height: 3px;
-  background-color: #ffffff;
-  z-index: 900;
-  border: 3px solid red;
-}
-@-webkit-keyframes run {
-  0% {
-    transform: rotate3d(0, 0, 1, -5deg);
-  }
-  50% {
-    transform: rotate3d(0, 0, 1, 150deg);
-  }
-  100% {
-    transform: rotate3d(0, 0, 1, -5deg);
-  }
-}
-@-webkit-keyframes bob {
-  0% {
-    transform: rotate3d(0, 0, 1, 5deg);
-  }
-  25% {
-    transform: rotate3d(0, 0, 1, -30deg) skew(15deg, 0deg);
-  }
-  50% {
-    transform: rotate3d(0, 0, 1, 5deg);
-  }
-  75% {
-    transform: rotate3d(0, 0, 1, -30deg) skew(15deg, 0deg);
-  }
-  100% {
-    transform: rotate3d(0, 0, 1, 20deg) skew(-15deg, 0deg);
-  }
-}
-@-webkit-keyframes pump {
-  0% {
-    transform: rotate3d(0, 0, 1, 80deg);
-  }
-  50% {
-    transform: rotate3d(0, 0, 1, -70deg);
-  }
-  100% {
-    transform: rotate3d(0, 0, 1, 80deg);
-  }
-}
-@-webkit-keyframes spin {
-  0% {
-    transform: rotate3d(0, 0, 1, -180deg);
-  }
-  25% {
-    transform: rotate3d(0, 0, 1, -100deg);
-  }
-  75% {
-    transform: rotate3d(0, 0, 1, 100deg);
-  }
-  100% {
-    transform: rotate3d(0, 0, 1, 180deg);
-  }
-}
-@-webkit-keyframes sprint {
-  0% {
-    transform-origin: 50% 50% 0px;
-    transform: translate(-500px, 0px);
-  }
-  100% {
-    transform: translate(0px, 0px);
-    transform-origin: 50% 50% 0px;
-    transform: translate(2000px, 0px);
-  }
-}	
-		
+		@-webkit-keyframes heart1{
+			0%{
+				box-shadow : 0 0 20px #ff0000;
+			}
+			10%{box-shadow : 0 0 8px #ff0000;}
+			40%{box-shadow : 0 0 15px #ff0000;}
+			100%{
+				box-shadow : 0 0 25px #ff0000;
+			}
+		}
+
+		@-moz-keyframes heart1{
+			0%{
+				box-shadow : 0 0 20px #ff0000;
+			}
+			10%{box-shadow : 0 0 8px #ff0000;}
+			40%{box-shadow : 0 0 15px #ff0000;}
+			100%{
+				box-shadow : 0 0 25px #ff0000;
+			}
+		}
+
+		@-ms-keyframes heart1{
+			0%{
+				box-shadow : 0 0 20px #ff0000;
+			}
+			10%{box-shadow : 0 0 8px #ff0000;}
+			40%{box-shadow : 0 0 15px #ff0000;}
+			100%{
+				box-shadow : 0 0 25px #ff0000;
+			}
+		}
+
 	</style>
 </head>
 <body>
@@ -335,7 +298,6 @@
 			
 			</div>
 			</div>
-			<button id="add">Add</button>
 		</div>
 
 		<div class="section section-2">
@@ -369,10 +331,12 @@
 
 		</div>
 
+
 		<div id="mask" class="mask"></div>
 		<div id="result" class="result-area">
 			<h4 class="result-title">恭喜您，累积得分 <span id="result-score"></span></h4>
 			<p class="result-btn-area"><button id="confirm-btn" class="section-btn">OK</button></p>
+			<div id="ceb-egg" class="egg"></div>
 		</div>
 	</div>
 
@@ -383,7 +347,217 @@
 			var n = 170, m = 40,
 				topics = 16, checks = 4, per = topics/checks;
 
-			return {
+			var base = {
+				$el : $('#wrapper'),
+				
+				$ : function(selector){
+					return this.$el.find(selector);
+				},
+
+				body : $('body'),
+
+				doc : $(document),
+
+				_initialize : function(){
+					if(this.els){
+						this._attachEls();
+					}
+
+					if(this.events){
+						this._bindEvents();
+					}
+				},
+
+				_attachEls : function(){
+					var i, dd;
+					
+				 	for(i in this.els){
+						dd = this.els[i];			 
+						this[i] = $(dd);
+					}			 
+				},
+
+				_bindEvents : function(){
+					var i, dd, dt, reg = /^(\S+)\s*(.*)$/, match;			  
+
+					for(i in this.events){
+						dt = this.events[i];
+						dd = 'function' === typeof dt ? dt : this[dt];
+						match = i.match(reg);
+						this.$el.on(match[1], match[2], $.proxy(dd, this));
+					}
+				},
+
+				_defer : function(fn, time){
+					return setTimeout($.proxy(fn, this), time || 0);		 
+				},
+
+				typeTxt : function(){
+					var i, dd, dt, n = 0;
+
+		  			for(i in this.txtMap){
+						dd = this.txtMap[i];	
+						dt = this.$(i);
+
+						(function(el, context){
+							$.each(dd.split(''), function(j, a){
+								context._defer(function(){el.innerHTML += a;}, 180 * n );	
+								n++;
+							}); 
+						})(dt[0], this);
+						
+					}
+		  		}
+				
+			};
+
+
+
+			var stage1 = $.extend({
+				
+				template : '<div id="page">'+
+							'<div class="page-left"></div>'+
+							'<div class="page-right"></div>'+
+							'<span class="page-circle"></span>'+
+							'<span class="page-bee"></span>'+
+						'</div>',
+
+				init : function(){
+					this._initialize();
+
+					this.$el.append(this.tmpl = $(this.template));
+
+					this._rendUI();
+
+					return this;
+				},
+
+				_rendUI : function(){
+					var h = this.doc.height(),
+						thro = 100;
+
+					h += thro;
+
+					this.$('#page').css({'-webkit-transform':'translateY(-'+h+'px)', 'height' : h+'px'});
+
+					this._defer(function(){
+						this.$('#page').css({'-webkit-transform':'translateY(0px)'}).addClass('page-tran');
+					}, 500);
+				},
+
+				destroy : function(){
+					this.tmpl.remove();		  
+				},
+
+				addStage : function(stage){
+					this._defer(function(){
+						this.body.addClass('black');
+						this.destroy();
+						
+						stage.init();		
+					}, 3500);	   
+				},
+
+			}, base);
+
+
+			var stage2 = $.extend({
+
+				txtMap : {
+					'#stage2-title' : 'Dear,',
+					'#stage2-con' : 'Do you love it ?',
+					'#stage2-yes' : 'Yes',
+					'#stage2-no' : 'No'
+				},
+				events : {
+					'click #stage2-no' : '_handleNo',
+					'click #stage2-yes' : '_handleYes'
+				},
+				
+				init : function(){
+					this._initialize();
+
+					this.$el.append(this.tmpl = $(this.template));
+
+					this._defer(this.typeTxt, 600);
+					
+				},
+
+			  	template : '<div id="stage2" class="stage-txt">'+
+							'<p id="stage2-title"></p>'+
+							'<p id="stage2-con"></p>'+
+							'<p class="stage2-btm"><span id="stage2-no"></span><span id="stage2-yes"></span></p>'+
+						'</div>',
+
+				destroy : function(){
+					this.$el.off('#stage2-no,#stage2-yes');
+					
+		  			this.tmpl.remove();
+		  		},
+
+				_handleNo : function(){
+					this.destroy();
+					stage4.init();
+				},
+
+				_handleYes : function(){
+					this.destroy();
+			 		stage3.init();
+			 	}
+
+			}, base);
+
+
+			var stage3 = $.extend({
+
+				txtMap : {
+					'#stage3-title' : 'I Love You, too !'
+				},
+
+				template : '<div class="stage-txt">'+
+							'<p class="heart" id="stage3-heart"></p>'+
+							'<p id="stage3-title" class="stage-con"></p>'+
+						'</div>',
+
+				init : function(){
+					this._initialize();
+
+					this.$el.append(this.tmpl = $(this.template));
+
+					this.$('#stage3-heart').show('slow');
+
+					this._defer(this.typeTxt, 1e3);
+				}
+						
+			}, base);
+
+
+			
+			var stage4 = $.extend({
+
+				txtMap : {
+					'#stage4-title' : 'You truly broke my heart.',
+					'#stage4-con' : 'But, I forgive you this time.'
+				},
+
+				template : '<div class="stage-txt" style="width:1000px">'+
+							'<p id="stage4-title" class="stage-con"></p>'+
+							'<p id="stage4-con" class="stage-con" style="margin-top:20px"></p>'+
+						'</div>',
+
+				init : function(){
+					this._initialize();
+
+					this.$el.append(this.tmpl = $(this.template));
+
+					this._defer(this.typeTxt, 600);
+				}
+						
+			}, base);
+
+
+
+			return $.extend({
 
 				step : 0,
 
@@ -395,11 +569,6 @@
 
 				_cache : [],
 
-				$el : $('#wrapper'),
-				
-				$ : function(selector){
-					return this.$el.find(selector);
-				},
 
 				els : {
 					'sectionInners' : '.section-inner',
@@ -417,9 +586,9 @@
 				events : {
 					'click #btn' : '_handleClickBtn',
 					'click .section-list img' : '_handleImgClick',
-					'click #add' : '_testAnimate',
 					'click #prevbtn' : '_handleClickPrev',
-					'click #confirm-btn' : function(){this._toggleRes(0)}
+					'click #confirm-btn' : '_handleClickOk',
+					'click #ceb-egg' : '_handleShowBegin'
 				},
 
 				_startTime : +new Date(),
@@ -432,15 +601,11 @@
 				init : function(){
 					this._prepare();		
 
-					if(this.els){
-						this._attachEls();
-					}
-
-					if(this.events){
-						this._bindEvents();
-					}
+					this._initialize();
 
 					this._rendUI();
+
+					this._checkNeedEgg();
 				},
 
 				_prepare : function(){
@@ -467,30 +632,20 @@
 
 				},
 
-				_attachEls : function(){
-					var i, dd;
-					
-				 	for(i in this.els){
-						dd = this.els[i];			 
-						this[i] = $(dd);
-					}			 
-				},
-
-				_bindEvents : function(){
-					var i, dd, dt, reg = /^(\S+)\s*(.*)$/, match;			  
-
-					for(i in this.events){
-						dt = this.events[i];
-						dd = 'function' === typeof dt ? dt : this[dt];
-						match = i.match(reg);
-						this.$el.on(match[1], match[2], $.proxy(dd, this));
-					}
-				},
-
 				_rendUI : function(){
 					this.setStep(this.step);	  
 					
 					this.levelEl.text(this.step + 1);
+				},
+
+				_checkNeedEgg : function(){
+					var dd = new Date(),
+						d = dd.getDate(),
+						m = dd.getMonth(),
+						days = [1,2,3],
+						hash = location.hash.split('#')[1];
+
+					this.isDay = (hash === 'egg' || (days.indexOf(d)!==-1 && m === 5));
 				},
 
 
@@ -542,8 +697,6 @@
 				setStep : function(step){
 					var arr = this._ret[step];		  
 
-					//this.levelEl.text(step + 1);
-
 					this._makeSubjects(arr, step);
 				},
 
@@ -559,9 +712,9 @@
 
 						this._toggleRes(1);
 						this.scoreEl.text(this._getScore());
-						
+
+						// @TODO
 						//$.post('',data).done();				  
-						//console.log(this._getScore());
 					}else{
 						this._scrollTop();
 
@@ -585,14 +738,26 @@
 					console.log(this._result);
 			  	},
 
+				_handleClickOk : function(){
+				 	if(this.isDay){
+						this.$('#confirm-btn').hide();			 
+						this.$('#ceb-egg').show();
+					}else{
+						this._toggleRes(0);
+						this.$('.btn-area').hide();
+					}				 
+
+					
+				},
+
 				_handleClickPrev : function(e){
 					this._scrollTop();
 				  	this.goPrev();
 				},
 
-
-				_testAnimate : function(){
-					//$('img[data-topic]').eq(0).addClass('animate2');			   
+				_handleShowBegin : function(){
+					this._toggleRes(0);   
+					
 					this._startShow();
 				},
 
@@ -692,7 +857,7 @@
 					});
 
 					if(/*this._result.length < (this.step + 1) * checks || */this._result.length < 16 || !f){
-						alert('Please answer all subjects.');
+						alert('还有宝宝没有找到爸妈哦，赶快回去检查一下~!');
 						return false;
 					}			
 
@@ -733,15 +898,18 @@
 				},
 
 				_toggleRes : function(f){
-		   			//this.maskEl.fadeTo(200, f ? 0.6 : 0);
 					var that = this;
+
 				 	if(f){
 						this.maskEl.fadeTo(200, 0.6);			 
 					}else{
 						this.maskEl.fadeTo(200, 0, function(){that.maskEl.hide()});
 					}
+
 					this.resultEl[f ? 'show' : 'hide']();
 		   		},
+
+				
 
 				
 
@@ -771,18 +939,30 @@
 				  */
 				_startShow : function(){
 					var anis = ['animate1', 'animate2'],
-						that = this, imgs, len;
+						that = this, imgs, len, arr, index;
+
 					// remove no need section
 					this.sections.each(function(i, section){
 							if(i > 0) $(section).remove();		
 					});
 
 					imgs = this.sections.eq(0).find('img');
+					len = imgs.length;
+
+					arr = this._makeRandomArr(this._makeArr(len), len);
+					index = arr.indexOf(len-1);
 
 					this.$('.active').removeClass('active');
 
 					imgs.each(function(i, img){
-						that._prefixedEve(img, 'add', function(){this.style.display = 'none';});
+						that._prefixedEve(img, 'add', function(){
+							this.style.visibility = 'hidden';
+							if(i == index){
+								that._clearDoc();
+								// Stage start
+								stage1.init().addStage(stage2);
+							}
+						});
 					});
 
 					imgs.each(function(i, img){
@@ -790,31 +970,14 @@
 
 						setTimeout(function(){
 							$t.addClass(anis[Math.floor(Math.random()*anis.length)]);
-						}, 300 * i);
+						}, 300 * arr[i]);
 					});
 
 					this._removeSomething();
-					$('body').addClass('black');
-					
-					setTimeout(function(){that._addPerson();}, 6e3);
+
 			 	},
 
-				_addPerson : function(){
-					this.$el.append($(this._createPerson()));			 
-				},
 
-				_createPerson : function(){
-					return "<div class='person'>"+
-    							"<div class='head'></div>"+
-    							"<div class='part arm one'></div>"+
-    							"<div class='part arm two'></div>"+
-    							"<div class='torso'></div>"+
-    							"<div class='part leg one'></div>"+
-    							"<div class='part foot one'></div>"+
-    							"<div class='part leg two'></div>"+
-    							"<div class='part foot two'></div>"+
-  							"</div>";				
-				},
 
 				_prefixedEve : function(el,ac,callback){
 					var pfx = ['webkit','moz','MS','o',''];
@@ -831,9 +994,15 @@
 					this.$('.section-outer').css('background','none');
 					this.$('.wrapper-inner').css('background', 'none');
 					this.$('.section-1').css('background', 'none');
+				},
+
+				_clearDoc : function(){
+					this.$('.wrapper-inner').remove();
+					this.maskEl.remove();
+					this.resultEl.remove();
 				}
 
-			};
+			}, base);
 			
  		})().init();
 	</script>
