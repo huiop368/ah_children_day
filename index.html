@@ -434,14 +434,17 @@
 
 				_rendUI : function(){
 					var h = this.doc.height(),
-						thro = 100;
+						thro = 100,
+						y;
 
 					h += thro;
+					y = 'translateY(-'+h+'px)';
+					d =  'translateY(0px)';
 
-					this.$('#page').css({'-webkit-transform':'translateY(-'+h+'px)', 'height' : h+'px'});
+					this.$('#page').css({'-webkit-transform': y, '-moz-transform' : y, '-ms-transform':y, 'transform':y, 'height' : h+'px'});
 
 					this._defer(function(){
-						this.$('#page').css({'-webkit-transform':'translateY(0px)'}).addClass('page-tran');
+						this.$('#page').css({'-webkit-transform':d,'-moz-transform' : d, '-ms-transform':d, 'transform':d }).addClass('page-tran');
 					}, 500);
 				},
 
