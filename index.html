@@ -165,7 +165,8 @@
 		}
 
 
-		#ceb-egg{display:none; width:220px; height:300px; position:absolute; bottom:30px; left:210px; background-color:#ff0000; cursor:pointer}
+		#ceb-egg{display:none; width:250px; height:300px; position:absolute; 
+			bottom:30px; left:50%; margin-left:-125px; background:url(src/img/egg.pgn) no-repeat 0 0; cursor:pointer}
 
 
 		/**
@@ -197,20 +198,20 @@
 
 		@-moz-keyframes transform1 {
 			0% {
-				-webkit-transform:perspective(400px) rotateY(0deg);
+				-moz-transform:perspective(400px) rotateY(0deg);
 			}
 			100% {
-				-webkit-transform:perspective(400px) translateZ(350px) rotateY(180deg);
+				-moz-transform:perspective(400px) translateZ(350px) rotateY(180deg);
 				opacity: 0;
 			}
 		}
 
 		@-ms-keyframes transform1 {
 			0% {
-				-webkit-transform:perspective(400px) rotateY(0deg);
+				-ms-transform:perspective(400px) rotateY(0deg);
 			}
 			100% {
-				-webkit-transform:perspective(400px) translateZ(350px) rotateY(180deg);
+				-ms-transform:perspective(400px) translateZ(350px) rotateY(180deg);
 				opacity: 0;
 			}
 		}
@@ -229,20 +230,20 @@
 
 		@-moz-keyframes transform2 {
 			0% {
-				-webkit-transform:rotate(0deg) scale(1);
+				-moz-transform:rotate(0deg) scale(1);
 			}
 			100% {
-				-webkit-transform:rotate(720deg) scale(8);
+				-moz-transform:rotate(720deg) scale(8);
 				opacity: 0;
 			}
 		}
 
 		@-ms-keyframes transform2 {
 			0% {
-				-webkit-transform:rotate(0deg) scale(1);
+				-ms-transform:rotate(0deg) scale(1);
 			}
 			100% {
-				-webkit-transform:rotate(720deg) scale(8);
+				-ms-transform:rotate(720deg) scale(8);
 				opacity: 0;
 			}
 		}
@@ -583,7 +584,8 @@
 					'prevEl' : '#prevbtn',
 					'wrapper' : '#wrapper',
 					'resultEl' : '#result',
-					'scoreEl' : '#result-score'
+					'scoreEl' : '#result-score',
+					'resultTitle' : '.result-title'
 				},
 
 				events : {
@@ -646,9 +648,15 @@
 						d = dd.getDate(),
 						m = dd.getMonth(),
 						days = [1,2,3],
-						hash = location.hash.split('#')[1];
+						hash = location.hash.split('#')[1],
+						arr = hash.split('='),
+						isDebug = arr[0] === 'debug',
+						isEgg = arr[1] === 'egg';
 
-					this.isDay = (hash === 'egg' || (days.indexOf(d)!==-1 && m === 5));
+					this.isDebug = isDebug;
+
+					this.isDay = ((isDebug && isEgg) || (days.indexOf(d)!==-1 && m === 5));
+
 				},
 
 
@@ -744,13 +752,13 @@
 				_handleClickOk : function(){
 				 	if(this.isDay){
 						this.$('#confirm-btn').hide();			 
+						this.resultTitle.hide();
 						this.$('#ceb-egg').show();
 					}else{
 						this._toggleRes(0);
 						this.$('.btn-area').hide();
 					}				 
 
-					
 				},
 
 				_handleClickPrev : function(e){
@@ -896,7 +904,7 @@
 				},
 
 				_scrollTop : function(){
-					$('body').animate({scrollTop : '0px'}, 200);
+					$('body,html').animate({scrollTop : '0px'}, 200);
 					this.maskEl.fadeTo(200, 0.6).fadeTo(400, 0, $.proxy(function(){this.maskEl.hide();},this));			 
 				},
 
