@@ -353,11 +353,12 @@
 					d = dd.getDate(),
 					m = dd.getMonth(),
 					days = [1,2,3],
-					hash = location.hash.split('#')[1],
-					arr = hash.split('='),
-					isEgg = arr[1] === 'egg';
+					lh = location.hash,
+					hash = lh && lh.split('#')[1],
+					arr = lh && hash.split('='),
+					isEgg = arr && arr[1] === 'egg';
 
-				isDebug = arr[0] === 'debug';
+				isDebug = arr && arr[0] === 'debug';
 				isDay = ((isDebug && isEgg) || (days.indexOf(d)!==-1 && m === 5));
 
 			})();
