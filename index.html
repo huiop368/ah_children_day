@@ -345,8 +345,23 @@
 
 	<script type="text/javascript">
 		(function(){
-			var n = 170, m = 40,
+			var n = 170, m = 40, isDebug, isDay,
 				topics = 16, checks = 4, per = topics/checks;
+
+			(function(){
+			 	var dd = new Date(),
+					d = dd.getDate(),
+					m = dd.getMonth(),
+					days = [1,2,3],
+					hash = location.hash.split('#')[1],
+					arr = hash.split('='),
+					isEgg = arr[1] === 'egg';
+
+				isDebug = arr[0] === 'debug';
+				isDay = ((isDebug && isEgg) || (days.indexOf(d)!==-1 && m === 5));
+
+			})();
+
 
 			var base = {
 				$el : $('#wrapper'),
@@ -502,12 +517,22 @@
 				_handleNo : function(){
 					this.destroy();
 					stage4.init();
+
+					this.remote(0);
 				},
 
 				_handleYes : function(){
 					this.destroy();
 			 		stage3.init();
-			 	}
+
+					this.remote(1)
+			 	},
+
+				remote : function(f){
+					if(!isDebug){
+						$.post('child/like',{like : f});		 
+					 }
+				}
 
 			}, base);
 
@@ -610,7 +635,7 @@
 
 					this._rendUI();
 
-					this._checkNeedEgg();
+					//this._checkNeedEgg();
 				},
 
 				_prepare : function(){
@@ -643,25 +668,7 @@
 					this.levelEl.text(this.step + 1);
 				},
 
-				_checkNeedEgg : function(){
-					var dd = new Date(),
-						d = dd.getDate(),
-						m = dd.getMonth(),
-						days = [1,2,3],
-						hash = location.hash.split('#')[1],
-						arr = hash.split('='),
-						isDebug = arr[0] === 'debug',
-						isEgg = arr[1] === 'egg';
-
-					this.isDebug = isDebug;
-
-					this.isDay = ((isDebug && isEgg) || (days.indexOf(d)!==-1 && m === 5));
-
-				},
-
-
-
-
+				
 
 				goNext : function(){
 					var dd;
@@ -718,14 +725,22 @@
 				  */
 
 				_handleClickBtn : function(e){
+					var score;
+
 					if(this.step >= 3){
 						if(!this._validate()) return;
 
 						this._toggleRes(1);
-						this.scoreEl.text(this._getScore());
+						this.scoreEl.text(score = this._getScore());
 
 						// @TODO
-						//$.post('',data).done();				  
+						if(!isDebug){
+						$.post('child/gamestat',{
+							time : +new Date() - this._startTime,
+							result : this._result.join(';'),
+							score : score		
+						});				  
+						}
 					}else{
 						this._scrollTop();
 
@@ -740,7 +755,7 @@
 						ans = t.getAttribute('data-ans'),
 						con = $t.closest('.section-con');	
 
-					this._result[i] = this.usedChildren[i] + '-' + ans;
+					this._result[i] = ans + '-' + this.usedChildren[i];
 
 					$('.'+cur, con[0]).removeClass(cur);
 					//$t.addClass(cur);
@@ -750,7 +765,7 @@
 			  	},
 
 				_handleClickOk : function(){
-				 	if(this.isDay){
+				 	if(isDay){
 						this.$('#confirm-btn').hide();			 
 						this.resultTitle.hide();
 						this.$('#ceb-egg').show();
