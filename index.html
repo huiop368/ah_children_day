@@ -29,9 +29,31 @@
 		.section-head{text-align:center; 1background:url(src/img/img_baby.png) no-repeat center 0;}
 		.section-head img{width : 290px; height : 250px; background:url(src/img/frame_baby.png) no-repeat 0 0}
 		.section-con{}
-		.section-con img{width:140px; height:140px; background:url(src/img/loading.gif) no-repeat 0 0; border:8px solid rgba(255,255,255,0.6); border-radius:8px; cursor:pointer}
+		.section-con img{width:140px; height:140px; background:url(src/img/loading1.gif) no-repeat 0 0; border:8px solid rgba(255,255,255,0.6); border-radius:8px; cursor:pointer}
 		.section-con img:hover,
 		.section-con img.active{border-color:#fff}
+		.section-img-wrap{display:inline-block; position:relative;overflow:hidden}
+		
+		.section-img-wrap span{
+			position:absolute; width:140px; height:30px;bottom: 8px; left: 8px;
+		   	background-color: #000; opacity: 0.6; line-height:30px; color : #fff;
+
+			-webkit-transition : transform 200ms ease-out;
+			-moz-transition : transform 200ms ease-out;
+			-ms-transition : transform 200ms ease-out;
+			transition : transform 300ms ease-out;
+
+			-webkit-transform : translateY(38px);
+			-moz-transform : translateY(38px);
+			-ms-transform : translateY(38px);
+			transform : translateY(38px);
+		}
+		.section-img-wrap:hover span{
+			-webkit-transform : translateY(-5px);
+			-moz-transform : translateY(-5px);
+			-ms-transform : translateY(-5px);
+			transform : translateY(-5px);
+		}
 
 		.section-1{background:url(src/img/cloud_02.png) repeat-x 0 bottom;}
 		.section-2{background:#fa8573 url(src/img/cloud_04.png) repeat-x 0 bottom;}
@@ -58,7 +80,7 @@
 		.section-prev-btn{display:none; background-color:#ccc}
 
 		.mask{display:none; position:absolute; top : 0; bottom : 0; left:0; right:0; background:#000; opacity: 0.5;}
-		.result-area{display:none;position:fixed; top:50%; left : 50%; margin-left:-317px; margin-top:-200px; width : 635px; height : 400px; background:url(src/img/finish.png) no-repeat 0 0;}
+		.result-area{display:none;position:fixed; top:50%; left : 50%; margin-left:-317px; margin-top:-200px; width : 635px; height : 400px; background:url(src/img/alarm_img.png) no-repeat 0 0;}
 		.result-title{text-align: center;font-size: 25px;color: yellow;padding-top: 20px;}
 		.result-btn-area{text-align:center; padding-top:220px;}
 
@@ -166,8 +188,25 @@
 
 
 		#ceb-egg{display:none; width:250px; height:300px; position:absolute; 
-			bottom:30px; left:50%; margin-left:-125px; background:url(src/img/egg.png) no-repeat 0 0; cursor:pointer}
+			bottom:30px; left:50%; margin-left:-125px; background:url(src/img/golden_egg.png) no-repeat 0 0; cursor:pointer}
 
+		.side-bee{
+			position:fixed;
+			width : 135px;
+			height : 160px;
+			background:url(src/img/bee_side.png) no-repeat 0 0;
+			top : 300px;
+			right : -70px;
+			cursor : pointer;
+
+			-webkit-transition: right 0.2s ease;
+			-moz-transition: right 0.2s ease;
+			-ms-transition: right 0.2s ease;
+			transition: right 0.2s ease;
+		}
+		.side-bee:hover{
+			right : -10px
+		}
 
 		/**
 		  *@Animate for plus level
@@ -339,14 +378,17 @@
 			<p class="result-btn-area"><button id="confirm-btn" class="section-btn">OK</button></p>
 			<div id="ceb-egg" class="egg"></div>
 		</div>
+		<div class="side-bee"></div>
 	</div>
 
 	<script src="src/js/jquery.js"></script>
 
 	<script type="text/javascript">
 		(function(){
-			var n = 170, m = 40, isDebug, isDay,
+			var n = 165, m = 56, isDebug, isDay,
 				topics = 16, checks = 4, per = topics/checks;
+
+			var names = ['余俊','俞阳东','华鸣飞','曹宇华','何杭军','蒙庚祥','叶琛','林国艳','吴功伟','陈葛','郑永','冯晓嵘','李丹','梁文平','戴丽君','王学成','梁贤','徐昕','宋伟','杜祖海','葛湘英','蔡移华','叶有元','黄舟','冯赟','张利岗','曹文起','罗召明','陈微','程欢','李坤','陈崇来','徐磊','邵桦','何菊霞','米娜','陈友明','蔡文娟','李桢达','曾子胜','潘文简','莫一楠','王蒴','冯大鑫','徐佳见','汪维宇','蒋敏璐','李娟','何福林','胡春涛','俞金妹','陈仕员','房立国','韩群燕','袁正兴','董洪波','戚一品','周昕伟','林海','张磊','常春明','赵宣','王书辉','刘峰雷','陶京','赵宪鹏','王雷雷','郭浩','何伟','李晨雨','林文峰','范鹏','张亮福','陈阳','金敏飞','肖兰宝','赵国军','张杰','陈建梁','林云志','陈财荣','何伟','周少华','盛廉君','饶成','王铁松','岳黎明','叶方','余军','钟晨杰','盛鑫','朱铁柱','梁翠萍','唐丽芳','吴婉婉','李萍','朱钰祥','诸国庆','陈筱丹','郭复强','丘添英','汪宝俊','郑达理','周旭锋','鲁文俊','陈克见','章文洁','王海荣','潘燕非','譚敦敏','曾光华','曹振业','徐杨清','任红阵','何双','钟宇静','魏小兰','潘轶','万真龙','万鹏','方辉','余星','武丽甜','张健','潘力','成晓雄','周佳盛','王晓明','方巧英','许庆光','王田','吴文','胡辉辉','闻尚权','洪徐伟','朱康伟','宗叶君','周煜','金玮','孙云凤','龚利丰','郭笋','金陈杰','孙刚','韦耐','王丽芳','刘云云','王统','吴耀','赵世楠','冀亮','王志强','李典茂','郑扬','刘淳猛','何金骏','郭大龙','方瑞','马俊','楼超权','余伟表','杜娟','李鹏','陈哲','杨军伟'];
 
 			(function(){
 			 	var dd = new Date(),
@@ -645,20 +687,27 @@
 					this.employee = this._makeArr(n);
 					this.children = this._makeArr(m);
 
+					//console.log(this._makeArr(n), this.children);
+
 					this.usedChildren = this._makeRandomArr(this.children, topics);
 
 					arr = this.usedChildren.slice(0);
+
+					//console.log(arr);
 
 					for(var i = 0; i < checks; i++){
 						dd = this._ret[i] = [];
 						for(var j = 0; j < per; j++){
 							dt = dd[j] = [];
 							dt.push(arr[0]);
+							//console.log(dt);
 							dd[j] = dt.concat(this._makeMatchEmployee(arr[0],i));
+							//console.log(dd[j]);
 							arr.splice(0,1);
 						}
 					}
 
+					//console.log(this._ret);
 					//this._preloadImg(this._ret);
 
 				},
@@ -760,7 +809,7 @@
 
 					$('.'+cur, con[0]).removeClass(cur);
 					//$t.addClass(cur);
-					$(t).parent('li').addClass(cur);
+					$(t).parents('li').addClass(cur);
 
 					console.log(this._result);
 			  	},
@@ -794,7 +843,9 @@
 				  */
 
 				_makeSubjects : function(arr, step){
-					var ret = [], that = this;
+					var ret = [], that = this,
+						paPath = 'src/img/people/parent/',
+						childPath = 'src/img/people/child/';
 
 					$.each(arr, function(j,items){
 											
@@ -803,7 +854,7 @@
 					// @TODO
 					// We may need change child name not to be number
 					// array[head]
-					str += '<div class="section-head"><img src="'+head+'.jpg" /></div>';
+					str += '<div class="section-head"><p class="section-img-wrap"><img src="'+childPath+'baby_'+(head + 1)+'.png" /></p></div>';
 					str += '<div class="section-con">';
 
 					$.each(items, function(i, num){
@@ -812,7 +863,7 @@
 							str += '<ul class="clearfix section-list section-list'+step+'">';
 						}
 
-						str += '<li><img src="'+num+'.jpg" data-topic="'+that.n+'" data-ans="'+num+'" /></li>';
+						str += '<li><p class="section-img-wrap"><img src="'+paPath+'parent_'+(num+1)+'.jpg" data-topic="'+that.n+'" data-ans="'+num+'" /><span>'+names[num]+'</span></p></li>';
 
 						if(i == len/2 -1 || i == len-1){
 							str += '</ul>';
@@ -865,6 +916,8 @@
 					this.employee.splice(this.employee.indexOf(child), 1);
 
 					arr = this._makeRandomArr(this.employee, num - 1);
+
+					//console.log(arr);
 
 					arr.splice(Math.floor(Math.random()*arr.length), 0, child);
 
@@ -974,6 +1027,7 @@
 					});
 
 					imgs = this.sections.eq(0).find('img');
+					pEls = this.sections.eq(0).find('.section-img-wrap');
 					len = imgs.length;
 
 					arr = this._makeRandomArr(this._makeArr(len), len);
@@ -981,7 +1035,7 @@
 
 					this.$('.active').removeClass('active');
 
-					imgs.each(function(i, img){
+					pEls.each(function(i, img){
 						that._prefixedEve(img, 'add', function(){
 							this.style.visibility = 'hidden';
 							if(i == index){
@@ -992,7 +1046,7 @@
 						});
 					});
 
-					imgs.each(function(i, img){
+					pEls.each(function(i, img){
 						var $t = $(img);		
 
 						setTimeout(function(){
