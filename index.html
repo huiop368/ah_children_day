@@ -135,6 +135,9 @@
 			color : #fff
 		}
 
+		.stage-4{position:relative; padding-top:260px; min-height:110px;font-size:30px}
+		.bee-cry{position:absolute; right:80px; bottom:-10px;width:167px;height:167px; background:url(src/img/cry.png) no-repeat 0 0}
+
 
 		#page{position:absolute; width:100%; top:0; left : 0; right:0;bottom:0; background-color:#2b2f37;}
 		.page-tran{-webkit-transition : transform 2s ease-in-out; -moz-transition : transform 2s ease-in-out;-ms-transition : transform 2s ease-in-out;transition : transform 2s ease-in-out;}
@@ -492,7 +495,8 @@
 				},
 
 				typeTxt : function(){
-					var i, dd, dt, n = 0;
+					var i, dd, dt, n = 0,
+						time = this.typeTime || 180;
 
 		  			for(i in this.txtMap){
 						dd = this.txtMap[i];	
@@ -500,7 +504,7 @@
 
 						(function(el, context){
 							$.each(dd.split(''), function(j, a){
-								context._defer(function(){el.innerHTML += a;}, 180 * n );	
+								context._defer(function(){el.innerHTML += a;}, time * n );	
 								n++;
 							}); 
 						})(dt[0], this);
@@ -647,14 +651,17 @@
 			
 			var stage4 = $.extend({
 
+				typeTime : 120,
+
 				txtMap : {
 					'#stage4-title' : 'You truly broke my heart.',
 					'#stage4-con' : 'But, I forgive you this time.'
 				},
 
-				template : '<div class="stage-txt" style="width:1000px">'+
+				template : '<div class="stage-txt stage-4" style="width:1000px">'+
 							'<p id="stage4-title" class="stage-con"></p>'+
 							'<p id="stage4-con" class="stage-con" style="margin-top:20px"></p>'+
+							'<span class="bee-cry"></span>'+
 						'</div>',
 
 				init : function(){
